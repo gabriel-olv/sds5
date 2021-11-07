@@ -13,7 +13,7 @@ const Home = () => {
                 <hr />
                 <p>Esta aplicação consiste em exibir um dashboard a partir de dados fornecidos por um back end construído com Spring Boot.</p>
             </div>
-            <Link className="btn btn-primary btn-lg" to='/dashboard'>Acessar dashboard</Link>
+            <Link className="btn btn-primary btn-lg my-3" to='/dashboard'>Acessar dashboard</Link>
         </div>
         <Footer />
         </>
