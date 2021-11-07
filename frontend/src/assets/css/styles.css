@@ -6,6 +6,7 @@
 html, body {
     height: 100%;
     font-family: "Ubuntu", sans-serif;
+    font-size: 12pt
 }
 
 #root {
@@ -29,4 +30,8 @@ html, body {
 
 .text-primary {
     color: var(--color-primary) !important;
+}
+
+.bg-my-light {
+    background-color: #f0f0f0;
 }
