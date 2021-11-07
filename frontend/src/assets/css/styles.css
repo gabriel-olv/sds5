@@ -35,3 +35,7 @@ html, body {
 .bg-my-light {
     background-color: #f0f0f0;
 }
+
+.table-hover {
+    cursor: pointer;
+}

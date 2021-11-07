@@ -1,94 +1,49 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { SalePage } from 'types/sale';
+import { formatLocalDate } from 'utils/format';
+import { BASE_URL } from 'utils/requests';
+
 const DataTable = () => {
+    const [page, setPage] = useState<SalePage>({
+        first: true,
+        last: false,
+        number: 0,
+        totalElements: 0,
+        totalPages: 0
+    });
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/sales?page=0&size=20&sort=date,desc`).then(r => {
+            setPage(r.data);
+        });
+    }, []);
+
     return (
         <div className="table-responsive">
             <table className="table table-striped table-hover table-sm">
                 <thead>
                     <tr>
-                        <th>Data</th>
-                        <th>Vendedor</th>
-                        <th>Clientes visitados</th>
-                        <th>Negócios fechados</th>
-                        <th>Valor</th>
+                        <th className="text-center">Data</th>
+                        <th className="text-center">Vendedor</th>
+                        <th className="text-center">Clientes visitados</th>
+                        <th className="text-center">Negócios fechados</th>
+                        <th className="text-center">Valor</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Barry Allen</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
+                    {
+                        page.content?.map(item => (
+                            <tr key = { item.id }>
+                                <td className="text-center">{ formatLocalDate(item.date, 'dd/MM/yyyy') }</td>
+                                <td className="text-center">{ item.seller.name }</td>
+                                <td className="text-center">{ item.visited }</td>
+                                <td className="text-center">{ item.deals }</td>
+                                <td className="text-center">{ item.amount.toFixed(2) }</td>
+                            </tr>
+                        ))
+                    }
+
                 </tbody>
             </table>
         </div>
